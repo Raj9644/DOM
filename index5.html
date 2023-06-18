@@ -1,0 +1,158 @@
+HTML CODE 
+
+<header id="main-header" class="bg-success text-white p-4 mb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            <h1 id="header-title">Item Lister</h1>
+        </div>
+        <div class="col-md-6 align-self-center">
+            <input type="text" class="form-control" id="filter" placeholder="Search Items...">
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+   <div id="main" class="card card-body">
+    <h2 class="title">Add Items</h2>
+    <form id="addForm" class="form-inline mb-3">
+      <input type="text" class="form-control mr-2" id="item">
+      <input type="submit" class="btn btn-dark" value="Submit">
+    </form>
+    <h2 class="title">Items</h2>
+    <ul id="items" class="list-group">
+      <li class="list-group-item">Item 1<button class="btn btn-danger btn-sm float-right delete">X</button><button class="btn btn-primary btn-sm float-right edit">Edit</button></li>
+      <li class="list-group-item">Item 2<button class="btn btn-danger btn-sm float-right delete">X</button><button class="btn btn-primary btn-sm float-right edit">Edit</button></li>
+      <li class="list-group-item">Item 3<button class="btn btn-danger btn-sm float-right delete">X</button><button class="btn btn-primary btn-sm float-right edit">Edit</button></li>
+      <li class="list-group-item">Item 4<button class="btn btn-danger btn-sm float-right delete">X</button><button class="btn btn-primary btn-sm float-right edit">Edit</button></li>
+    </ul>
+   </div>
+  </div>
+
+JS CODE
+
+
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
+
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete and Edit event
+itemList.addEventListener('click', manageItem);
+// Filter event
+filter.addEventListener('keyup', filterItems);
+
+// Add item
+function addItem(e){
+  e.preventDefault();
+
+  // Get input value
+  var newItem = document.getElementById('item').value;
+
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+  // Add text node with input value
+  li.appendChild(document.createTextNode(newItem));
+
+  // Create delete button element
+  var deleteBtn = document.createElement('button');
+
+  // Add classes to delete button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
+
+  // Create edit button element
+  var editBtn = document.createElement('button');
+
+  // Add classes to edit button
+  editBtn.className = 'btn btn-primary btn-sm float-right edit mr-2';
+  // Append text node
+  editBtn.appendChild(document.createTextNode('Edit'));
+
+  // Append buttons to li
+  li.appendChild(editBtn);
+  li.appendChild(deleteBtn);
+
+  // Append li to list
+  itemList.appendChild(li);
+}
+
+// Manage item: handle delete and edit button clicks
+function manageItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+  else if(e.target.classList.contains('edit')){
+    var li = e.target.parentElement;
+    var span = li.firstElementChild;
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control edit-item';
+    input.value = span.textContent.trim();
+
+    var saveBtn = document.createElement('button');
+    saveBtn.className = 'btn btn-success btn-sm save';
+    saveBtn.appendChild(document.createTextNode('Save'));
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.className = 'btn btn-secondary btn-sm cancel ml-1';
+    cancelBtn.appendChild(document.createTextNode('Cancel'));
+
+    li.insertBefore(input, span);
+    li.insertBefore(saveBtn, e.target);
+    li.insertBefore(cancelBtn, e.target);
+
+    span.style.display = 'none';
+    e.target.style.display = 'none';
+  }
+  else if(e.target.classList.contains('save')){
+    var li = e.target.parentElement;
+    var input = li.querySelector('.edit-item');
+    var span = li.firstElementChild;
+
+    if(input.value.trim() !== ''){
+      span.textContent = input.value.trim();
+      input.style.display = 'none';
+      e.target.style.display = 'none';
+      li.querySelector('.cancel').style.display = 'none';
+      span.style.display = 'block';
+    }
+    else{
+      alert('Please enter a value');
+    }
+  }
+  else if(e.target.classList.contains('cancel')){
+    var li = e.target.parentElement;
+    var input = li.querySelector('.edit-item');
+    var span = li.firstElementChild;
+
+    input.style.display = 'none';
+    e.target.style.display = 'none';
+    li.querySelector('.save').style.display = 'none';
+    span.style.display = 'block';
+  }
+}
+
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
