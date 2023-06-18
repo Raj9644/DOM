@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    />
+    <title>Item Lister</title>
+  </head>
+  <body>
+    <header id="main-header" class="bg-success text-white p-4 mb-3">
+      <div class="container">
+        <h1 id="header-title">Item Lister</h1>
+      </div>
+    </header>
+
+    <div class="container">
+      <div id="main" class="card card-body">
+        <h2 class="title">Add Items</h2>
+        <form class="form-inline mb-3">
+          <input type="text" class="form-control mr-2" />
+          <input type="submit" class="btn btn-dark" value="Submit" />
+        </form>
+
+        <h2 class="title">Items</h2>
+        <ul id="items" class="list-group">
+          <li class="list-group-item">Item 1</li>
+          <li class="list-group-item">Item 2</li>
+          <li class="list-group-item">Item 3</li>
+          <li class="list-group-item">Item 4</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- JavaScript code here -->
+    <script>
+      // Add the text "Hello World" before "Item Lister" header
+      const mainHeader = document.getElementById("main-header");
+      const helloWorld = document.createElement("h1");
+      helloWorld.textContent = "Hello World";
+      mainHeader.parentElement.insertBefore(
+        helloWorld,
+        mainHeader.nextElementSibling
+      );
+
+      // Add the text "Hello" before "Item 1"
+      const itemsList = document.getElementById("items");
+      const helloItem1 = document.createElement("li");
+      helloItem1.textContent = "Hello";
+      itemsList.insertBefore(helloItem1, itemsList.firstElementChild);
+
+      // Example usage of other DOM manipulation keywords:
+
+      // parentElement: gets the parent of an element
+      const form = document.querySelector("form");
+      const parentOfForm = form.parentElement;
+
+      // lastElementChild: gets the last element child of an element
+      const itemsListLastChild = itemsList.lastElementChild;
+
+      // lastChild: gets the last child node of an element
+      const itemsListLastNode = itemsList.lastChild;
+
+      // createElement: create a new HTML element
+      const newListItem = document.createElement("li");
+
+      // setAttribute: set an HTML attribute to an element
+      newListItem.setAttribute("class", "list-group-item");
+
+      // createTextNode: create a text node
+      const newListItemText = document.createTextNode("New Item");
+
+      // appendChild: add a child element to a parent element
+      newListItem.appendChild(newListItemText);
+      itemsList.appendChild(newListItem);
+
+      // firstElementChild: gets the first element child of an element
+      const itemsListFirstChild = itemsList.firstElementChild;
+
+      // firstChild: gets the first child node of an element
+      const itemsListFirstNode = itemsList.firstChild;
+
+      // nextSibling: gets the next sibling node of an element
+      const itemsListLastChildNextSibling = itemsListLastChild.nextSibling;
+
+      // nextElementSibling: gets the next sibling element of an element
+      const lastItemNextSibling = itemsList.lastElementChild.nextElementSibling;
+
+      // previousSibling: gets the previous sibling node of an element
+      const itemsListFirstChildPreviousSibling =
+        itemsListFirstChild.previousSibling;
+
+      // previousElementSibling:
+      // gets the previous sibling element of an element
+      const secondItemPreviousSibling =
+        itemsListFirstNode.nextElementSibling.previousElementSibling;
+
+    </script>
+
+    <!-- Bootstrap and jQuery JavaScript files -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+      integrity="sha384-Hc9vL3k5a10wF61zyVr5+OGpUaudri2wCyPgIXG2mOpnH/lGOnZeYfL3Qb6HYZ7J"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
